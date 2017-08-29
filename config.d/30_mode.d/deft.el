@@ -25,6 +25,9 @@
   (setq deft-use-filter-string-for-filename t)
   (setq deft-auto-save-interval 0)
 
+  ;; Start Deft in insert-mode
+  (evil-set-initial-state 'deft-mode 'insert)
+
   ;; advise deft to save window config
   (defun bjm-deft-save-windows (orig-fun &rest args)
     (setq bjm-pre-deft-window-config (current-window-configuration))
