@@ -46,14 +46,12 @@ the way it was before deft was invoked"
     )
 
   ;; advise deft-new-file-named to replace spaces in file names with '-'
-  (defun bjm-deft-strip-spaces (orig-fun &rest file)
-    ; this probably doesn't need to be done in three steps!
-    (setq name (pop file))
-    (setq name (replace-regexp-in-string " " "-" name))
-    (push name file)
-    (apply orig-fun file)
+  (defun bjm-deft-strip-spaces (args)
+    "Replace spaces with - in the string contained in the first element of the
+list args. Used to advise deft's file naming function."
+    (list (replace-regexp-in-string " " "-" (car args)))
     )
-  (advice-add 'deft-new-file-named :around #'bjm-deft-strip-spaces)
+  (advice-add 'deft-new-file-named :filter-args #'bjm-deft-strip-spaces)
 
   (global-set-key (kbd "C-c q") 'bjm-quit-deft)
   )
