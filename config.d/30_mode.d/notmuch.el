@@ -3,6 +3,11 @@
   :bind ("C-x m" . notmuch)
   :config
     (setq notmuch-search-oldest-first nil)
+    (setq message-send-mail-function 'message-send-mail-with-sendmail)
+    (setq sendmail-program "/usr/local/bin/msmtp-enqueue.sh")
+    (setq mail-specify-envelope-from t)
+    (setq message-sendmail-envelope-from 'header)
+    (setq mail-envelope-from 'header)
     (define-key notmuch-show-mode-map "d"
       (lambda ()
         "toggle deleted tag for thread"
