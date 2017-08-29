@@ -1,9 +1,13 @@
+(use-package orgit
+  :ensure t)
+
 ;; setup org mode
 (use-package org
   :ensure org-plus-contrib
   :config
   (require 'org)
-  (require 'org-notmuch))
+  (require 'org-notmuch)
+  (require 'orgit))
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
