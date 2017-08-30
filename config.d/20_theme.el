@@ -2,7 +2,7 @@
 (setq inhibit-startup-screen t)
 
 ;; set font
-(set-frame-font "Source Code Pro Medium-11" nil t)
+(set-frame-font "Office Code Pro-11" nil t)
 
 ;; use monokai theme
 (use-package monokai-theme
