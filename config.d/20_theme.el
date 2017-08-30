@@ -4,8 +4,32 @@
 ;; set font
 (set-frame-font "Office Code Pro-11" nil t)
 
-;; use monokai theme
-(use-package monokai-theme
+(use-package zenburn-theme
   :ensure t
   :config
-  (load-theme 'monokai t))
+  (load-theme 'zenburn t)
+  (zenburn-with-color-variables
+
+    ;; for some modes some adaptions are required...
+
+    ;; configure theme for notmuch
+    (eval-after-load 'notmuch
+      `(progn
+         (set-face-foreground 'notmuch-search-date ,zenburn-yellow)
+         (set-face-foreground 'notmuch-search-count ,zenburn-cyan)
+         (set-face-foreground 'notmuch-search-subject ,zenburn-fg)
+         (set-face-foreground 'notmuch-search-matching-authors "#ffeece") ; zenburn-yellow+1
+         (set-face-foreground 'notmuch-search-non-matching-authors "#b09f6f") ; zenburn-yellow-4
+         (set-face-attribute  'notmuch-tag-face nil :foreground ,zenburn-green+2 :slant 'italic)
+
+         (dolist (face '(notmuch-crypto-signature-good notmuch-crypto-signature-good-key
+                                                       notmuch-crypto-signature-unknown notmuch-crypto-signature-bad
+                                                       notmuch-crypto-decryption notmuch-crypto-part-header))
+           (set-face-attribute face nil :bold t :background ,zenburn-bg-1))
+
+         (set-face-foreground 'notmuch-crypto-signature-good ,zenburn-green+3)
+         (set-face-foreground 'notmuch-crypto-signature-good-key ,zenburn-cyan)
+         (set-face-foreground 'notmuch-crypto-signature-bad ,zenburn-red+1)
+         (set-face-foreground 'notmuch-crypto-signature-unknown "#bf8f6f") ; zenburn-orange-2
+         (set-face-foreground 'notmuch-crypto-decryption ,zenburn-magenta)
+         (set-face-foreground 'notmuch-crypto-part-header ,zenburn-blue-2)))))
