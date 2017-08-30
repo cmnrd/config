@@ -12,7 +12,15 @@
 
     ;; for some modes some adaptions are required...
 
-    ;; configure theme for notmuch
+    ;; magit
+    (eval-after-load 'magit
+      `(progn
+      (set-face-background 'magit-diff-added ,zenburn-bg)
+      (set-face-background 'magit-diff-added-highlight ,zenburn-bg+05)
+      (set-face-background 'magit-diff-removed ,zenburn-bg)
+      (set-face-background 'magit-diff-removed-highlight ,zenburn-bg+05)))
+
+    ;; notmuch
     (eval-after-load 'notmuch
       `(progn
          (set-face-foreground 'notmuch-search-date ,zenburn-yellow)
