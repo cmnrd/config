@@ -23,6 +23,9 @@
     ;; notmuch
     (eval-after-load 'notmuch
       `(progn
+         (set-face-foreground 'notmuch-tag-unread ,zenburn-red)
+         (set-face-underline 'notmuch-tag-added ,zenburn-green)
+         (set-face-attribute 'notmuch-tag-deleted nil :strike-through ,zenburn-red)
          (set-face-foreground 'notmuch-search-date ,zenburn-yellow)
          (set-face-foreground 'notmuch-search-count ,zenburn-cyan)
          (set-face-foreground 'notmuch-search-subject ,zenburn-fg)
