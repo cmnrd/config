@@ -21,3 +21,21 @@
 
 (setq org-hide-leading-stars t)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+;; set the keywords
+;; '!' is a timestamp
+;; '@' is a note
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "APPT(a)" "NOTE(n)" "PROJ(p)" "|" "DONE(d)"
+                  "CANCELED(c@)")))
+
+;; set capture templates
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/tasks.org" "Inbox")
+         "* TODO %?\n  %a")
+        ("a" "Appointment" entry (file+headline "~/tasks.org" "Inbox")
+         "* APPT %T %?\n  %a")
+        ("n" "Note" entry (file+headline "~/tasks.org" "Inbox")
+         "* NOTE %?\n  %a")))
+
+(add-hook 'org-capture-mode-hook 'evil-insert-state)

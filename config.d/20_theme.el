@@ -20,6 +20,15 @@
       (set-face-background 'magit-diff-removed ,zenburn-bg)
       (set-face-background 'magit-diff-removed-highlight ,zenburn-bg+05)))
 
+    ;; org
+    (eval-after-load 'org
+      `(setq org-todo-keyword-faces
+             '(("TODO" . (:foreground ,zenburn-red+1 :weight bold))
+               ("DONE" . (:foreground ,zenburn-green-1 :weight bold))
+               ("CLOSED" . (:foreground ,zenburn-green-1))
+               ("NOTE" . (:foreground ,zenburn-blue :weight bold))
+               ("APPT" . (:foreground ,zenburn-yellow :weight bold)))))
+
     ;; notmuch
     (eval-after-load 'notmuch
       `(progn
