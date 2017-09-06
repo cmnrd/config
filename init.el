@@ -7,5 +7,5 @@
 ;; keep this file clean and store custom variables in another file
 (defconst custom-file (expand-file-name "custom.el" user-emacs-directory))
 (unless (file-exists-p custom-file)
-  (write-region "" "" custom-file)
+  (write-region "" "" custom-file))
 (load custom-file)
