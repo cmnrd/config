@@ -39,3 +39,6 @@
          "* NOTE %?\n  LINK: %a\n  ADDED: %U")))
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+;; agenda files
+(setq org-agenda-files '("~/tasks.org" "~/deft"))
