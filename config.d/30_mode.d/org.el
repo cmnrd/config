@@ -32,10 +32,10 @@
 ;; set capture templates
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/tasks.org" "Inbox")
-         "* TODO %?\n  %a")
-        ("a" "Appointment" entry (file+headline "~/tasks.org" "Inbox")
-         "* APPT %T %?\n  %a")
+         "* TODO %?\n  LINK: %a\n  ADDED: %U")
+        ("a" "Appointment" entry (file+headline "~/tasks.org" "Calendar")
+         "* APPT %?\n  WHEN: %^T\n  LINK: %a\n  ADDED: %U")
         ("n" "Note" entry (file+headline "~/tasks.org" "Inbox")
-         "* NOTE %?\n  %a")))
+         "* NOTE %?\n  LINK: %a\n  ADDED: %U")))
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
