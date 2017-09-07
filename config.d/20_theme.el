@@ -23,11 +23,13 @@
     ;; org
     (eval-after-load 'org
       `(setq org-todo-keyword-faces
-             '(("TODO" . (:foreground ,zenburn-red+1 :weight bold))
-               ("DONE" . (:foreground ,zenburn-green-1 :weight bold))
-               ("CLOSED" . (:foreground ,zenburn-green-1))
-               ("NOTE" . (:foreground ,zenburn-blue :weight bold))
-               ("APPT" . (:foreground ,zenburn-yellow :weight bold)))))
+             '(("TODO"      . (:foreground ,zenburn-red+1  :weight bold))
+               ("DONE"     . (:foreground ,zenburn-green-1 :weight bold))
+               ("CLOSED"   . (:foreground ,zenburn-green-1 :weight bold))
+               ("NOTE"     . (:foreground ,zenburn-blue    :weight bold))
+               ("BUG"      . (:foreground ,zenburn-magenta :weight bold))
+               ("CANCELED" . (:foreground ,zenburn-fg-1    :weight bold))
+               ("APPT"     . (:foreground ,zenburn-yellow  :weight bold)))))
 
     ;; notmuch
     (eval-after-load 'notmuch

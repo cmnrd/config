@@ -26,13 +26,15 @@
 ;; '!' is a timestamp
 ;; '@' is a note
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "APPT(a)" "NOTE(n)" "PROJ(p)" "|" "DONE(d)"
+      '((sequence "TODO(t)" "APPT(a)" "BUG(b)" "NOTE(n)" "PROJ(p)" "|" "DONE(d)"
                   "CANCELED(c@)")))
 
 ;; set capture templates
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/tasks.org" "Inbox")
          "* TODO %?\n  LINK: %a\n  ADDED: %U")
+        ("b" "Bug" entry (file+headline "~/tasks.org" "Inbox")
+         "* BUG %?\n  LINK: %a\n  ADDED: %U")
         ("a" "Appointment" entry (file+headline "~/tasks.org" "Calendar")
          "* APPT %?\n  WHEN: %^T\n  LINK: %a\n  ADDED: %U")
         ("n" "Note" entry (file+headline "~/tasks.org" "Inbox")
