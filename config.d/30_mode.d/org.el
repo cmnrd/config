@@ -26,8 +26,8 @@
 ;; '!' is a timestamp
 ;; '@' is a note
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "APPT(a)" "BUG(b)" "NOTE(n)" "PROJECT(p)" "|" "DONE(d)"
-                  "CANCELED(c@)")))
+      '((sequence "TODO(t)" "APPT(a)" "BUG(b)" "NOTE(n)" "PROJECT(p)"
+                  "WAIT(w@/!)" "|" "DONE(d)" "CANCELED(c@)")))
 
 ;; set capture templates
 (setq org-capture-templates

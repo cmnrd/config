@@ -29,6 +29,7 @@
                ("BUG"       . (:foreground ,zenburn-magenta :weight bold))
                ("CANCELLED" . (:foreground ,zenburn-fg-1    :weight bold))
                ("PROJECT"   . (:foreground ,zenburn-blue-2  :weight bold))
+               ("WAIT"      . (:foreground ,zenburn-orange  :weight bold))
                ("APPT"      . (:foreground ,zenburn-yellow  :weight bold)))))
 
     ;; notmuch
