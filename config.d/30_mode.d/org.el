@@ -37,6 +37,8 @@
          "* BUG %?\n  LINK: %a\n  ADDED: %U")
         ("a" "Appointment" entry (file+headline "~/tasks.org" "Calendar")
          "* APPT %?\n  WHEN: %^T\n  LINK: %a\n  ADDED: %U")
+        ("l" "Log entry in current buffer" entry (file+datetree buffer-file-name)
+         "* NOTE %?\n  ADDED: %U")
         ("n" "Note" entry (file+headline "~/tasks.org" "Inbox")
          "* NOTE %?\n  LINK: %a\n  ADDED: %U")))
 
