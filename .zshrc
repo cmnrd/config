@@ -100,4 +100,6 @@ alias ll="ls -lh"
 
 alias fn="find -name"
 
-. ~/.zshrc_local
+if [[ -e ~/.zshrc_local ]] then;
+    . ~/.zshrc_local
+fi
