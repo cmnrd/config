@@ -25,12 +25,12 @@
       `(setq org-todo-keyword-faces
              '(("TODO"      . (:foreground ,zenburn-red+1   :weight bold))
                ("DONE"      . (:foreground ,zenburn-green-1 :weight bold))
-               ("NOTE"      . (:foreground ,zenburn-blue    :weight bold))
+               ("NOTE"      . (:foreground ,zenburn-blue-2  :weight bold))
                ("BUG"       . (:foreground ,zenburn-magenta :weight bold))
                ("CANCELLED" . (:foreground ,zenburn-fg-1    :weight bold))
-               ("PROJECT"   . (:foreground ,zenburn-blue-2  :weight bold))
-               ("WAIT"      . (:foreground ,zenburn-orange  :weight bold))
-               ("APPT"      . (:foreground ,zenburn-yellow  :weight bold)))))
+               ("PROJECT"   . (:foreground ,zenburn-yellow)) ; zenburn-orange+1
+               ("WAIT"      . (:foreground ,zenburn-blue    :weight bold))
+               ("APPT"      . (:foreground ,zenburn-orange  :weight bold)))))
 
     ;; notmuch
     (eval-after-load 'notmuch
