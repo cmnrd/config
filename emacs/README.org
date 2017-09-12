@@ -5,7 +5,8 @@ far from perfect. However, maybe you find something useful in here.
 
 * Usage
 
-You can simply copy (or link) all the files to your ~\~/.emacs.d~
-directory. However, my preferred solution is to copy ~emac.el~ and then edit
-the path for loading ~load-directory~ and ~config.d~ to the location of this
-repository.
+You can simply copy (or link) all the files to your ~\~/.emacs.d~ directory.
+However, my preferred solution is to copy ~emac.el~ and then edit the path for
+loading ~load-directory~ and ~config.d~ to the location of this repository. To
+apply some local configurations, you can add a file ~local.el~ tto your
+~\~/.emacs.d~ directory.

@@ -9,3 +9,7 @@
 (unless (file-exists-p custom-file)
   (write-region "" "" custom-file))
 (load custom-file)
+
+;; load local.el if it exists
+(when (file-exists-p "~/.emacs.d/local.el")
+  (load "~/.emacs.d/local"))
