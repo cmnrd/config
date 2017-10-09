@@ -3,3 +3,6 @@
 
 ;;; Remember the history
 (savehist-mode 1)
+
+;;; scroll to first errror in compilation mode
+(setq compilation-scroll-output 'first-error)
