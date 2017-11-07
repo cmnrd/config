@@ -1,0 +1,6 @@
+Host batou
+    User christian
+    HostName batou.cmenard.me
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%h@%p:%r
+    ControlPersist 15m
