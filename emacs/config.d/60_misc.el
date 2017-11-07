@@ -6,3 +6,6 @@
 
 ;;; scroll to first errror in compilation mode
 (setq compilation-scroll-output 'first-error)
+
+;; Do not add mail signature automatically
+(setq message-signature nil)
