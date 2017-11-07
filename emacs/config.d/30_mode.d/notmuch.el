@@ -12,6 +12,9 @@
                               ("work" (all-the-icons-octicon "briefcase"))
                               ("attachment" (all-the-icons-octicon "package"))))
 
+  ;; use remote notmuch
+  (setq notmuch-command "/home/cmenard/remote-notmuch.sh")
+
   ;; helper function to sort tags, this helps to put symbols before other tags
   (defun my-notmuch-tag-sort (tags)
     (setq res nil)
