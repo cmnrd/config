@@ -1,0 +1,12 @@
+[Unit]
+Description=Runs msmtp-runqueu.sh every 30 seconds
+Requires=msmtp_runqueue.service
+
+[Timer]
+AccuracySec=1s
+OnBootSec=60s
+OnUnitActiveSec=30s
+Unit=msmtp_runqueue.service
+
+[Install]
+WantedBy=timer.target

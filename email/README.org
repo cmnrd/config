@@ -1,0 +1,32 @@
+* Requirements
+- msmtp
+- python-keyring
+
+* Setup
+
+*Note:* This document describes the setup on arch and is intended as a
+documentation for myself. It is not intended to be generally applicable.
+
++ Install the configuration file msmtprc by copying the file to your home
+  directory or creating a symbolic link. Adapt as you need!
+  ~ln -s \~/config/email/msmtprc \~/.msmptrc~
++ Add your smtp passwords for your accounts to the keyring. You can use
+  ~python -c "import keyring; keyring.set_password('msmtp', 'ACCOUNT', 'PASSWORD')"~
++ Copy the msmtp queue shell scripts from ~/usr/share/doc/msmtp/msmtpqueue~ to
+  ~/usr/local/bin~.
++ Setup a systemd timer that periodically sends enqueued e-mails when there is
+  a stable internet connection.
+  #+BEGIN_SRC
+  ln -s ~/config/email/msmtp_runqueue.timer ~/.config/systemd/user
+  ln -s ~/config/email/msmtp_runqueue.service ~/.config/systemd/user
+  systemctl --user enable msmtp_runqueue.timer
+  systemctl --user start msmtp_runqueue.timer
+  #+END_SRC
++ Configure emacs to use msmtp for sending mails!
+  #+BEGIN_SRC emacs-lisp
+   (setq message-send-mail-function 'message-send-mail-with-sendmail)
+   (setq sendmail-program "/usr/local/bin/msmtp-enqueue.sh")
+   (setq mail-specify-envelope-from t)
+   (setq message-sendmail-envelope-from 'header)
+   (setq mail-envelope-from 'header)
+  #+END_SRC
