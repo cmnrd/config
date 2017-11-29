@@ -4,3 +4,7 @@ Host batou
     ControlMaster auto
     ControlPath ~/.ssh/master-%h@%p:%r
     ControlPersist 15m
+
+Host chief
+    User christian
+    HostName chief.cmenard.me
