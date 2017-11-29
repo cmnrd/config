@@ -35,7 +35,7 @@
          "* TODO %?\n  LINK: %a\n  ADDED: %U")
         ("b" "Bug" entry (file+headline "~/tasks.org" "Inbox")
          "* BUG %?\n  LINK: %a\n  ADDED: %U")
-        ("a" "Appointment" entry (file+headline "~/tasks.org" "Calendar")
+        ("a" "Appointment" entry (file+headline "~/org/calendar/inbox.org" "Inbox")
          "* APPT %?\n  WHEN: %^T\n  LINK: %a\n  ADDED: %U")
         ("l" "Log entry in current buffer" entry (file+datetree buffer-file-name)
          "* NOTE %?\n  ADDED: %U")
@@ -45,4 +45,19 @@
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
 ;; agenda files
-(setq org-agenda-files '("~/tasks.org" "~/deft"))
+(setq org-agenda-files '("~/tasks.org" "~/deft" "~/org"))
+
+;; setup caldav
+(use-package org-caldav
+  :ensure t
+  :config
+  (setq org-icalendar-timezone "Europe/Berlin"
+        org-caldav-url "https://dav.cmenard.me/cal.php/calendars/christian"
+        org-caldav-calendar-id "default"
+        org-caldav-inbox (expand-file-name "~/org/calendar/inbox.org")
+        org-caldav-show-sync-results t
+        org-caldav-delete-org-entries 'always)
+  (setq org-caldav-files `("~/org/calendar/calendar.org"
+                           "~/org/calendar/archive.org"))
+  ;; sync once at startup
+  (org-caldav-sync))
