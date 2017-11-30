@@ -15,7 +15,7 @@
   :commands deft
   :init
   (global-set-key (kbd "C-x d")
-                  (lambda () (interactive) (deft-in-dir "~/deft")))
+                  (lambda () (interactive) (deft-in-dir "~/org/deft")))
   ;; More keybindings to start deft in other directories can be added here
   :config
   (setq deft-extensions '("org"))
