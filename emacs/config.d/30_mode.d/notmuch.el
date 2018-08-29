@@ -81,17 +81,29 @@
         (if (member "deleted" (notmuch-search-get-tags))
             (notmuch-search-tag (list "-deleted"))
           (notmuch-search-tag (list "+deleted")))))
+
+    (define-key notmuch-show-mode-map "a"
+      (lambda ()
+        "archive message"
+        (interactive)
+        (notmuch-show-tag (list "-unread" "-inbox"))))
+    (define-key notmuch-search-mode-map "a"
+      (lambda ()
+        "archive thread"
+        (interactive)
+        (notmuch-search-tag (list "-unread" "-inbox"))))
+
     (define-key notmuch-show-mode-map "S"
       (lambda ()
         "mark message as spam"
         (interactive)
-        (notmuch-show-tag (list "+spam" "-inbox"))))
-
+        (notmuch-show-tag (list "+spam"))))
     (define-key notmuch-search-mode-map "S"
       (lambda ()
         "mark thread as spam"
         (interactive)
-        (notmuch-search-tag (list "+spam" "-inbox"))))
+        (notmuch-search-tag (list "+spam"))))
+
     (define-key notmuch-show-mode-map "u"
       (lambda ()
         "toggle unread tag for message"

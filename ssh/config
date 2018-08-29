@@ -8,3 +8,7 @@ Host batou
 Host chief
     User christian
     HostName chief.cmenard.me
+
+Host togusa
+    User christian
+    HostName togusa.cmenard.me

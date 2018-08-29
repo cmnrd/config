@@ -13,7 +13,7 @@
 (use-package helm-bibtex
   :ensure t
   :config
-  (setq bibtex-completion-bibliography '("~/bib/bibliography.bib"))
-  (setq bibtex-completion-library-path '("~/bib/pdfs"))
+  (setq bibtex-completion-bibliography '("~/Documents/Bibliography/bibliography.bib"))
+  (setq bibtex-completion-library-path '("~/Documents/Bibliography/PDFs"))
   (setq bibtex-completion-pdf-field "File")
-  (setq bibtex-completion-notes-path "~/bib/notes.org"))
+  (setq bibtex-completion-notes-path "~/org/deft/paper-notes.org"))
