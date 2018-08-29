@@ -6,7 +6,10 @@
 ;;; Enable neotree and map to F1.
 (use-package neotree
   :ensure t
-  :config (setq neo-window-width 40))
+  :config
+  (setq neo-window-width 40)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setq neo-smart-open t))
 
 (define-key global-map (kbd "<f1>") 'neotree-toggle)
 
