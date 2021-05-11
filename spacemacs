@@ -54,7 +54,11 @@ This function should only modify configuration layer settings."
      ;; syntax-checking
      ;; version-control
      themes-megapack
-     treemacs)
+     (treemacs :variables
+               treemacs-use-all-the-icons-theme t
+               treemacs-use-git-mode 'deferred
+               treemacs-use-filewatch-mode t
+               treemacs-use-follow-mode 'tag))
 
 
    ;; List of additional packages that will be installed without being wrapped
