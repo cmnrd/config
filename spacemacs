@@ -547,7 +547,10 @@ dump.")
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
-before packages are loaded.")
+before packages are loaded."
+  ;;;;; magit ;;;;;
+  ;; switch to insert mode when prompting for the commit message
+  (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 
 ;; Do not write anything past this comment. This is where Emacs will
