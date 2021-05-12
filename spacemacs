@@ -60,7 +60,8 @@ This function should only modify configuration layer settings."
                treemacs-use-all-the-icons-theme t
                treemacs-use-git-mode 'deferred
                treemacs-use-filewatch-mode t
-               treemacs-use-follow-mode 'tag))
+               treemacs-use-follow-mode 'tag)
+     yaml)
 
 
    ;; List of additional packages that will be installed without being wrapped
