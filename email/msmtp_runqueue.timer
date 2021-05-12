@@ -9,4 +9,4 @@ OnUnitActiveSec=30s
 Unit=msmtp_runqueue.service
 
 [Install]
-WantedBy=timer.target
+WantedBy=default.target
