@@ -9,7 +9,7 @@
   :config
   (setq neo-window-width 40)
   (setq projectile-switch-project-action 'neotree-projectile-action)
-  (setq neo-smart-open t))
+  (setq neo-smart-open nil))
 
 (define-key global-map (kbd "<f1>") 'neotree-toggle)
 

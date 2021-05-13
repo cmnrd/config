@@ -607,7 +607,6 @@ This function is called at the very end of Spacemacs initialization."
  '(pos-tip-foreground-color "#FFFFEF")
  '(rustic-ansi-faces
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCDC"])
- '(send-mail-function 'sendmail-send-it)
  '(smartrep-mode-line-active-bg (solarized-color-blend "#7F9F7F" "#4F4F4F" 0.2))
  '(term-default-bg-color "#3F3F3F")
  '(term-default-fg-color "#DCDCCC")

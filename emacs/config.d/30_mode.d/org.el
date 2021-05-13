@@ -9,46 +9,51 @@
   :ensure org-plus-contrib
   :config
   (require 'org)
-  (require 'org-notmuch)
-  (require 'orgit))
+  (require 'ol-notmuch)
+  (require 'org-tempo)
+  (require 'org-caldav)
+  (require 'org-ref)
+  (require 'orgit)
 
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (setq org-log-done t)
 
-(setq org-default-notes-file "~/org/tasks.org")
-(define-key global-map "\C-cc" 'org-capture)
+  (setq org-default-notes-file "~/org/tasks.org")
+  (define-key global-map "\C-cc" 'org-capture)
 
-(setq org-hide-leading-stars t)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (setq org-hide-leading-stars t)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-;; set the keywords
-;; '!' is a timestamp
-;; '@' is a note
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "APPT(a)" "BUG(b)" "NOTE(n)" "PROJECT(p)"
-                  "WAIT(w@/!)" "|" "DONE(d)" "CANCELED(c@)")))
+  ;; set the keywords
+  ;; '!' is a timestamp
+  ;; '@' is a note
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "APPT(a)" "BUG(b)" "NOTE(n)" "PROJECT(p)"
+                    "WAIT(w@/!)" "|" "DONE(d)" "CANCELED(c@)")))
 
-;; set capture templates
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Inbox")
-         "* TODO %?\n  LINK: %a\n  ADDED: %U")
-        ("b" "Bug" entry (file+headline "~/org/tasks.org" "Inbox")
-         "* BUG %?\n  LINK: %a\n  ADDED: %U")
-        ("a" "Appointment" entry (file+headline "~/org/calendar/inbox.org" "Inbox")
-         "* APPT %?\n  WHEN: %^T\n  LINK: %a\n  ADDED: %U")
-        ("l" "Log entry in current buffer" entry (file+datetree buffer-file-name)
-         "* NOTE %?\n  ADDED: %U")
-        ("n" "Note" entry (file+headline "~/org/tasks.org" "Inbox")
-         "* NOTE %?\n  LINK: %a\n  ADDED: %U")))
+  ;; set capture templates
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Inbox")
+           "* TODO %?\n  LINK: %a\n  ADDED: %U")
+          ("b" "Bug" entry (file+headline "~/org/tasks.org" "Inbox")
+           "* BUG %?\n  LINK: %a\n  ADDED: %U")
+          ("a" "Appointment" entry (file+headline "~/org/calendar/calendar.org" "Captured")
+           "* APPT %?\n  WHEN: %^T\n  LINK: %a\n  ADDED: %U")
+          ("l" "Log entry in current buffer" entry (file+datetree buffer-file-name)
+           "* NOTE %?\n  ADDED: %U")
+          ("n" "Note" entry (file+headline "~/org/tasks.org" "Inbox")
+           "* NOTE %?\n  LINK: %a\n  ADDED: %U")
+          ("p" "Paper" entry (file+headline "~/org/tasks.org" "Papers")
+           "* %^{TITLE} :work:papers:\n  ADDED: %U\n\
+** TODO Add bibtex entry for \"%\\1\"\n\
+** TODO Add PDF for \"%\\1\"\n\
+** TODO Read Paper \"%\\1\"\n\
+** TODO Add Notes from reading \"%\\1\"\n")))
 
-(add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-;; agenda files
-(setq org-agenda-files '("~/org" "~/org/calendar/" "~/org/deft"))
-
-;; setup caldav
-(use-package org-caldav
+  ;; setup caldav
   :ensure t
   :config
   (setq org-icalendar-timezone "Europe/Berlin"
@@ -58,14 +63,16 @@
         org-caldav-show-sync-results nil
         org-caldav-delete-org-entries 'always)
   (setq org-caldav-files `("~/org/calendar/calendar.org"
-                           "~/org/calendar/archive.org"))
+                           "~/org/calendar/archive.org"
+                           "~/org/deft/meetings.org"
+                           "~/org/deft/teaching.org"))
   ;; sync once at startup
   ;;  (org-caldav-sync))
-  )
+  ;; agenda files
+  (custom-set-variables '(org-agenda-files (quote ("~/org" "~/org/calendar/" "~/org/deft"))))
 
-(use-package org-ref
-  :ensure t
-  :config
+  ;; also show state changes in the agenda log view
+  (setq org-agenda-log-mode-items '(closed state clock))
 
   ;; for loading citations from CrossRef and others
   (use-package biblio
@@ -108,9 +115,17 @@
   ;;   (lambda (autokey) "call org-ref clean" (org-ref-clean-bibtex-entry)))
   (setq biblio-doi--dx-mime-accept "application/x-bibtex")
   (setq  org-latex-pdf-process
-         '("latexmk -shell-escape -bibtex -pdf %f")))
+         '("latexmk -shell-escape -bibtex -pdf %f"))
 
-;; active Babel languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)))
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t) (plantuml . t) (ditaa . t)))
+
+  (setq org-plantuml-jar-path
+        (expand-file-name "/opt/plantuml/plantuml.jar"))
+  (setq org-ditaa-jar-path
+        (expand-file-name "/usr/share/java/ditaa/ditaa-0.11.jar"))
+
+  ;; export code as listings
+    (setq org-latex-listings 'listings))

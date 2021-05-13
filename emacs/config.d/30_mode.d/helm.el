@@ -5,7 +5,8 @@
          ("C-x r b" . helm-filtered-bookmarks)
          ("C-x C-f" . helm-find-files))
   :config
-  (helm-mode 1))
+  (helm-mode 1)
+  (customize-set-variable 'helm-ff-lynx-style-map t))
 
 (use-package helm-fuzzy-find
   :ensure t)

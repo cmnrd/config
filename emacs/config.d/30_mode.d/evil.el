@@ -1,4 +1,8 @@
 ;; switch to evil mode by default
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
 (use-package evil
   :ensure t
   :config
@@ -6,6 +10,7 @@
   (evil-set-initial-state 'message-mode 'insert)
   (evil-set-initial-state 'notmuch-message-mode 'insert)
   (setq evil-want-fine-undo t)
+  (evil-set-undo-system 'undo-tree)
 
   ;; Notmuch
   (evil-define-key 'normal notmuch-search-mode-map
