@@ -45,7 +45,7 @@ This function should only modify configuration layer settings."
      ;; lsp
      ;; markdown
      multiple-cursors
-     (notmuchp :variables notmuch-command "~/config/email/remote-notmuch.sh")
+     (notmuch-extra :variables notmuch-command "~/config/email/remote-notmuch.sh")
      ;; org
      pythonp
      ;; (shell :variables
