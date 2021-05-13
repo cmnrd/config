@@ -46,8 +46,8 @@ This function should only modify configuration layer settings."
      ;; markdown
      multiple-cursors
      (notmuch-extra :variables notmuch-command "~/config/email/remote-notmuch.sh")
-     ;; org
      pythonp
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
