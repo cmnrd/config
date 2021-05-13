@@ -3,4 +3,4 @@ Description=run msmtp-runqueu.sh
 
 [Service]
 Type=oneshot
-ExecStart=/home/cmenard/config/email/msmtp_runqueue.sh
+ExecStart=%h/config/email/msmtp_runqueue.sh
