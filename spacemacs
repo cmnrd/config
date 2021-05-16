@@ -46,8 +46,9 @@ This function should only modify configuration layer settings."
      ;; markdown
      multiple-cursors
      (notmuch-extra :variables notmuch-command "~/config/email/remote-notmuch.sh")
-     pythonp
-     org
+     (org :variables
+          org-enable-roam-support t)
+     ;; pythonp
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -551,7 +552,10 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;;;;; magit ;;;;;
   ;; switch to insert mode when prompting for the commit message
-  (add-hook 'git-commit-mode-hook 'evil-insert-state))
+  (add-hook 'git-commit-mode-hook 'evil-insert-state)
+
+  ;;;;; org-roam ;;;;;
+  (setq org-roam-directory "~/org/roam"))
 
 
 ;; Do not write anything past this comment. This is where Emacs will
