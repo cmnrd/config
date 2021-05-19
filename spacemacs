@@ -555,7 +555,10 @@ before packages are loaded."
   (add-hook 'git-commit-mode-hook 'evil-insert-state)
 
   ;;;;; org-roam ;;;;;
-  (setq org-roam-directory "~/org/roam"))
+  (setq org-roam-directory "~/org/roam")
+
+  ;;;;; org-agenda ;;;;;
+  (setq org-agenda-files '("~/org/roam" "~/org/roam/daily")))
 
 
 ;; Do not write anything past this comment. This is where Emacs will
