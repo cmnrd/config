@@ -539,7 +539,10 @@ See the header of this file for more information."
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
-If you are unsure, try setting them in `dotspacemacs/user-config' first.")
+If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  ;; disable the warning message about migration to roam v2 at startup
+  (setq org-roam-v2-ack t)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -561,6 +564,10 @@ before packages are loaded."
 
   ;;;;; org-roam ;;;;;
   (setq org-roam-directory "~/org/roam")
+  (add-to-list 'org-roam-capture-templates
+               `("t" "TODO" entry "** TODO %?\n  LINK: %a\n  ADDED: %U"
+                 :target (file+olp "%<%Y%m%d%H%M%S>-${slug}.org" ("Todos"))
+                 :unnarrowed t))
 
   ;;;;; org-agenda ;;;;;
   (setq org-agenda-files '("~/org/roam" "~/org/roam/daily"))
