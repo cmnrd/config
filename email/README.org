@@ -9,7 +9,7 @@ documentation for myself. It is not intended to be generally applicable.
 
 + Install the configuration file msmtprc by copying the file to your home
   directory or creating a symbolic link. Adapt as you need!
-  ~ln -s \~/config/email/msmtprc \~/.msmptrc~
+  ~ln -s ~/config/email/msmptrc ~/.msmptrc~
 + Add your smtp passwords for your accounts to the keyring. You can use
   ~python -c "import keyring; keyring.set_password('msmtp', 'ACCOUNT', 'PASSWORD')"~
 + Copy the msmtp queue shell scripts from ~/usr/share/doc/msmtp/msmtpqueue~ to
