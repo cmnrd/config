@@ -51,7 +51,7 @@ This function should only modify configuration layer settings."
      ;; markdown
      multiple-cursors
      (notmuch-extra :variables
-                    notmuch-command "~/config/email/remote-notmuch.sh"
+                    notmuch-crypto-gpg-program 'gpgsm
                     notmuch-search-oldest-first nil)
      org-extra
      kanban
