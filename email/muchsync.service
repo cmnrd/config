@@ -1,0 +1,6 @@
+[Unit]
+Description=run muchsync to synchronize notmuch e-mails
+
+[Service]
+Type=oneshot
+ExecStart=muchsync christian@batou.cmenard.me

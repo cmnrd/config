@@ -1,11 +1,26 @@
 * Requirements
 - msmtp
 - python-keyring
+- notmuch
+- muchsync
 
 * Setup
 
 *Note:* This document describes the setup on arch and is intended as a
 documentation for myself. It is not intended to be generally applicable.
+
+** Email receiving/management with notmuch and muchsync
+
++ First time synchronization with ~muchsync --init ~/notmuch christian@batou.cmenard.me~
++ Periodic synchronization by activating a systemd timer
+  #+BEGIN_SRC
+  systemctl --user link ~/config/email/muchsync.timer
+  systemctl --user link ~/config/email/muchsync.service
+  systemctl --user enable muchsync.timer
+  systemctl --user start muchsync.timer
+  #+END_SRC
+
+** Email sending with msmtp
 
 + Install the configuration file msmtprc by copying the file to your home
   directory or creating a symbolic link. Adapt as you need!
@@ -17,8 +32,8 @@ documentation for myself. It is not intended to be generally applicable.
 + Setup a systemd timer that periodically sends enqueued e-mails when there is
   a stable internet connection.
   #+BEGIN_SRC
-  ln -s ~/config/email/msmtp_runqueue.timer ~/.config/systemd/user
-  ln -s ~/config/email/msmtp_runqueue.service ~/.config/systemd/user
+  systemctl --user link ~/config/email/msmtp_runqueue.timer
+  systemctl --user link ~/config/email/msmtp_runqueue.service
   systemctl --user enable msmtp_runqueue.timer
   systemctl --user start msmtp_runqueue.timer
   #+END_SRC
