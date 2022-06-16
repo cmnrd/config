@@ -1,0 +1,13 @@
+[Unit]
+  Description=Mount the CC Shared folder via cifs
+  Requires=network-online.target
+  After=network-online.service
+
+[Mount]
+  What=\\vs-cfaed.cfaed.tu-dresden.de\cc
+  Where=/media/SharePoint
+  Options=credentials=/home/cmenard/smbcredentials,workgroup=dom,uid=1000,gid=1000,vers=2.1,user,rw
+  Type=cifs
+
+[Install]
+  WantedBy=multi-user.target

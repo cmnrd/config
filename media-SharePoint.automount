@@ -1,0 +1,11 @@
+[Unit]
+  Description=Automount the CC Shared folder via cifs
+  Requires=network-online.target
+  After=network-online.service
+
+[Automount]
+  Where=/media/SharePoint
+  TimeoutIdleSec=300
+
+[Install]
+  WantedBy=multi-user.target
