@@ -42,11 +42,13 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     bibtex
      cmake
      c-c++
      emacs-lisp
      git
      helm
+     latex
      lsp
      ;; markdown
      multiple-cursors
@@ -54,6 +56,7 @@ This function should only modify configuration layer settings."
                     notmuch-crypto-gpg-program 'gpgsm
                     notmuch-search-oldest-first nil)
      org-extra
+     pdf
      kanban
      python
      ;; (shell :variables
@@ -570,7 +573,7 @@ before packages are loaded."
 
   ;;;;; org ;;;;;
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WIP(p)" "|" "DONE(d)")
+        '((sequence "BACKLOG(b)" "TODO(t)" "WIP(p)" "|" "DONE(d)")
           (sequence "WAIT(w)" "|")
           (sequence "|" "CANCELED(c)")))
 
@@ -580,6 +583,22 @@ before packages are loaded."
                `("t" "TODO" entry "** TODO %?\n  LINK: %a\n  ADDED: %U"
                  :target (file+olp "%<%Y%m%d%H%M%S>-${slug}.org" ("Tasks"))
                  :unnarrowed t))
+  (add-to-list 'org-roam-capture-templates
+               `("b" "Bibliography Item" plain "%?"
+                 :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                    ,(concat "#+title: ${title}\n"
+                                             "#+filetags: :BibItem:\n"
+                                             "\n"))
+                 :unnarrowed t)
+               )
+  (add-to-list 'org-roam-capture-templates
+               `("n" "Permanent Note" plain "%?"
+                 :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                    ,(concat "#+title: ${title}\n"
+                                             "#+filetags: :PermanentNote:\n"
+                                             "\n"))
+                 :unnarrowed t)
+               )
   (add-to-list 'org-roam-capture-templates
                `("p" "Person" plain "%?"
                  :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
@@ -600,6 +619,22 @@ before packages are loaded."
                 '((c-c++ :variables c-c++-backend 'lsp-clangd)))
   (setq c-c++-lsp-enable-semantic-highlight t)
 
+  ;; bibtex
+  ;; copied from here: https://org-roam.discourse.group/t/minimum-configuration-of-org-roam-v2-org-roam-bibtex-for-spacemacs-users/1755
+
+  (setq reftex-default-bibliography '("~/Documents/Bibliography/references.bib"))
+
+  (setq org-ref-bibliography-notes "~/Documents/Bibliography/notes.org"
+        org-ref-default-bibliography '("~/Documents/Bibliography/references.bib")
+        org-ref-pdf-directory "~/Documents/Bibliography/pdfs/")
+
+  (setq bibtex-completion-bibliography "~/Documents/Bibliography/references.bib"
+        bibtex-completion-library-path "~/Documents/Bibliography/pdfs"
+        bibtex-completion-notes-path "~/Documents/Bibliography/notes.org")
+
+  ; globally enable org-roam-bibtex
+  (org-roam-bibtex-mode)
+
   ;; enable gpg decryption in raw view
   (defadvice notmuch-show-view-raw-message
       (after notmuch-show-view-raw-message-after activate)
@@ -609,6 +644,9 @@ before packages are loaded."
   (setq mm-decrypt-option 'always)
   (setq mm-verify-option 'always)
   (setq mml-smime-use 'epg)
+
+  ; Automatically update pdf preview when recompiling Latex
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   )
 
 
@@ -658,6 +696,7 @@ This function is called at the very end of Spacemacs initialization."
  '(notmuch-saved-searches
    '((:name "inbox" :query "tag:inbox" :key "i")
      (:name "lf github" :query "tag:lf and tag:github and tag:unread" :key "l")
+     (:name "lf github (to me)" :query "tag:lf and tag:github and tag:unread and to:christian.menard@tu-dresden.de" :key "m")
      (:name "unread" :query "tag:unread" :key "u")
      (:name "flagged" :query "tag:flagged" :key "f")
      (:name "sent" :query "tag:sent" :key "t")
@@ -667,7 +706,7 @@ This function is called at the very end of Spacemacs initialization."
    '("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c"))
  '(objed-cursor-color "#CC9393")
  '(package-selected-packages
-   '(csv-mode toml-mode ron-mode racer rust-mode flycheck-rust cargo systemd stickyfunc-enhance pyvenv lsp-python-ms lsp-pyright epc ctable concurrent deferred helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode counsel-gtags counsel swiper ivy company-anaconda pythonic yaml-mode zenburn-theme zen-and-art-theme yapfify ws-butler writeroom-mode winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil treemacs-all-the-icons toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme symon symbol-overlay sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection string-edit sphinx-doc spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle seti-theme reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme quickrun pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin poetry planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme pcre2el password-generator paradox overseer organic-green-theme org-superstar open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme nose noctilux-theme naquadah-theme nameless mustang-theme multi-line monokai-theme monochrome-theme molokai-theme moe-theme modus-vivendi-theme modus-operandi-theme minimal-theme material-theme majapahit-theme magit-section madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode link-hint light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide importmagic hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org helm-notmuch helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gandalf-theme forge font-lock+ flycheck-package flycheck-elsa flx-ido flatui-theme flatland-theme farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme emr elpy elisp-slime-nav el-patch editorconfig dumb-jump drag-stuff dracula-theme dotenv-mode doom-themes django-theme dired-quick-sort diminish devdocs define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode chocolate-theme cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme blacken birds-of-paradise-plus-theme badwolf-theme auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme anaconda-mode ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-link ace-jump-helm-line))
+   '(ol-notmuch quelpa csv-mode toml-mode ron-mode racer rust-mode flycheck-rust cargo systemd stickyfunc-enhance pyvenv lsp-python-ms lsp-pyright epc ctable concurrent deferred helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode counsel-gtags counsel swiper ivy company-anaconda pythonic yaml-mode zenburn-theme zen-and-art-theme yapfify ws-butler writeroom-mode winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil treemacs-all-the-icons toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme symon symbol-overlay sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection string-edit sphinx-doc spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle seti-theme reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme quickrun pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin poetry planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme pcre2el password-generator paradox overseer organic-green-theme org-superstar open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme nose noctilux-theme naquadah-theme nameless mustang-theme multi-line monokai-theme monochrome-theme molokai-theme moe-theme modus-vivendi-theme modus-operandi-theme minimal-theme material-theme majapahit-theme magit-section madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode link-hint light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide importmagic hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org helm-notmuch helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gandalf-theme forge font-lock+ flycheck-package flycheck-elsa flx-ido flatui-theme flatland-theme farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme emr elpy elisp-slime-nav el-patch editorconfig dumb-jump drag-stuff dracula-theme dotenv-mode doom-themes django-theme dired-quick-sort diminish devdocs define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode chocolate-theme cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme blacken birds-of-paradise-plus-theme badwolf-theme auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme anaconda-mode ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-link ace-jump-helm-line))
  '(pdf-view-midnight-colors '("#232333" . "#c7c7c7"))
  '(pos-tip-background-color "#4F4F4F")
  '(pos-tip-foreground-color "#FFFFEF")
@@ -688,5 +727,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
