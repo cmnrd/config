@@ -57,7 +57,6 @@ This function should only modify configuration layer settings."
                     notmuch-search-oldest-first nil)
      org-extra
      pdf
-     kanban
      python
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -84,7 +83,9 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      org-super-agenda
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -647,6 +648,29 @@ before packages are loaded."
 
   ; Automatically update pdf preview when recompiling Latex
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
+
+  ;; customize org-super-agenda
+  (setq org-agenda-custom-commands
+        '(("k" "Kanban View"
+           (
+            (todo "BACKLOG|TODO|WIP|DONE|CANCELED|WAIT"
+                  ((org-agenda-overriding-header "")
+                   (org-super-agenda-groups
+                    '(
+                      (:name "Done"
+                             :todo ("DONE" "CANCELED"))
+                      (:name "Work in Progress"
+                             :todo "WIP")
+                      (:name "Waiting"
+                             :todo "WAIT")
+                      (:name "Todo"
+                             :todo "TODO")
+                      (:name "Backlog"
+                             :todo "BACKLOG")
+                      ))))))
+          ))
+  (org-super-agenda-mode)
   )
 
 
