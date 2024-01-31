@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(typescript
+   '(windows-scripts
+     typescript
      html
      csv
      rust
@@ -617,6 +618,13 @@ before packages are loaded."
                                             "* Meetings\n"))
                  :unnarrowed t)
                )
+  ;; capture templates for org-capture;-extension in firefox: https://github.com/sprig/org-capture-extension
+  (setq org-capture-templates `(
+	                              ("p" "Protocol" entry (file+headline ,(concat org-directory "/roam/20240131095901-inbox.org") "Inbox")
+                                 "** TODO %^{Title}\nSource: %:link\nCaptured On: %U\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+	                              ("L" "Protocol Link" entry (file+headline ,(concat org-directory "/roam/20240131095901-inbox.org") "Tasks")
+                                 "** TODO %? [[%:link][%:description]] \nCaptured On: %U")
+                                ))
 
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables c-c++-backend 'lsp-clangd)))
@@ -659,7 +667,6 @@ before packages are loaded."
   ;;   "Move final right brace to a line of its own."
   ;;   (progn (bibtex-end-of-entry) (left-char) (newline-and-indent)
   ;;          (insert "      ")))
-  d
 
   ;; enable gpg decryption in raw view
   (defadvice notmuch-show-view-raw-message
