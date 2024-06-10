@@ -577,7 +577,8 @@ before packages are loaded."
 
   ;;;;; org ;;;;;
   (setq org-todo-keywords
-        '((sequence "BACKLOG(b)" "TODO(t)" "WIP(p)" "|" "DONE(d)")
+        '((sequence "HOLD(h)" "ACTIVE(a)" "|" "COMPLETED(c)")
+          (sequence "TODO(t)" "NEXT(n)" "WIP(p)" "|" "DONE(d)")
           (sequence "WAIT(w)" "|")
           (sequence "|" "CANCELED(c)")))
 
@@ -693,10 +694,25 @@ before packages are loaded."
                                 :todo "TODAY"
                                 :scheduled today
                                 :order 1))))))
-        )
+         )
+        ("p" "Projects Lists"
+            ((todo "ACTIVE|HOLD|COMPLETED|NEXT"
+                  ((org-agenda-overriding-header "")
+                   (org-super-agenda-groups
+                    '(
+                      (:name "Active projects"
+                             :and (:todo "ACTIVE" :children "NEXT"))
+                      (:name "No next action"
+                             :and (:todo "ACTIVE" :not (:children "NEXT")))
+                      (:name "Projects on hold"
+                             :todo "HOLD")
+                      (:name "Completed Projects"
+                             :todo "COMPLETED")
+                      (:name "Do not show next actions"
+                             :discard (:todo "NEXT"))
+                      ))))))
         ("k" "Kanban View"
-           (
-            (todo "BACKLOG|TODO|WIP|DONE|CANCELED|WAIT"
+           ((todo "TODO|WIP|NEXT|DONE|CANCELED|WAIT"
                   ((org-agenda-overriding-header "")
                    (org-super-agenda-groups
                     '(
@@ -706,10 +722,10 @@ before packages are loaded."
                              :todo "WIP")
                       (:name "Waiting"
                              :todo "WAIT")
+                      (:name "Next"
+                             :todo "NEXT")
                       (:name "Todo"
                              :todo "TODO")
-                      (:name "Backlog"
-                             :todo "BACKLOG")
                       )))))
         )))
   (org-super-agenda-mode)
