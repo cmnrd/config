@@ -6,9 +6,8 @@ systemctl --user enable ssh-agent.service
 systemctl --user start ssh-agent
   #+END_SRC
 
-In order for ssh-add to find the ssh-agent, you will need to add
-~SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"~ to
-your ~\~/.pam_environment~ file (create if it does not exist).
+In order for ssh-add to find the ssh-agent, you need to create a file
+~$HOME/.config/plasma-workspace/env/ssh-agent.sh~ and add the following line
+~export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"~.
 
-If you run on KDE, you probably also want to install ksshaskpass. Then add a
-symlink to the ssh-add-ksshaskass.sh script to ~\~/.config/autostart_scripts/~.
+If you run on KDE, you probably also want to install ksshaskpass. Open the Autostart settings menu and add ~\~/.config/autostart_scripts/~ as a login script.
